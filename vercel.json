@@ -1,14 +1,6 @@
 {
   "rewrites": [
     {
-      "source": "/api/:path*",
-      "destination": "http://13.62.105.84:8001/api/:path*"
-    },
-    {
-      "source": "/django-admin/:path*",
-      "destination": "http://13.62.105.84:8001/django-admin/:path*"
-    },
-    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
