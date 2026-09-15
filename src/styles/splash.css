@@ -1,0 +1,112 @@
+/* =========================================================
+   Global Splash Screen
+   ========================================================= */
+
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  color: #1e293b;
+  transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+}
+
+.splash-screen.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.splash-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 320px;
+  animation: splash-float 3s ease-in-out infinite;
+}
+
+.splash-logo {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 40px;
+}
+
+.splash-progress-container {
+  width: 100%;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.splash-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #6d8bff, #7c3aed);
+  border-radius: 6px;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 10px rgba(124, 58, 237, 0.3);
+}
+
+.splash-progress-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #475569;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 1px;
+}
+
+/* =========================================================
+   Welcome Screen (Post Login)
+   ========================================================= */
+
+.welcome-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-page);
+  color: var(--text-primary);
+  transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+}
+
+.welcome-screen.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.welcome-text {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  animation: welcome-pop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  opacity: 0;
+  transform: scale(0.8) translateY(20px);
+}
+
+@keyframes welcome-pop {
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes splash-float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}

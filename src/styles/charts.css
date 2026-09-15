@@ -1,0 +1,267 @@
+/* =========================================================
+   Charts: thin marks, hairline grid, one tooltip, table view
+   ========================================================= */
+
+.chart-root {
+  position: relative;
+  width: 100%;
+}
+
+.chart-root svg {
+  display: block;
+  overflow: visible;
+}
+
+.chart-grid {
+  stroke: var(--chart-grid);
+  stroke-width: 1;
+}
+
+.chart-baseline {
+  stroke: var(--chart-axis);
+  stroke-width: 1;
+}
+
+.chart-axis-text {
+  fill: var(--text-muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart-end-label {
+  fill: var(--text-primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.chart-line {
+  fill: none;
+  stroke: var(--series-1);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.chart-area {
+  fill: var(--series-1);
+  opacity: 0.1;
+}
+
+.chart-dot {
+  stroke: var(--surface-card);
+  stroke-width: 2;
+}
+
+.chart-crosshair {
+  stroke: var(--chart-axis);
+  stroke-width: 1;
+}
+
+.chart-hit-area {
+  fill: transparent;
+  cursor: crosshair;
+}
+
+.chart-hit-area:focus-visible,
+.chart-bar-hit:focus-visible {
+  outline: none;
+  stroke: var(--color-primary);
+  stroke-width: 2;
+}
+
+.chart-bar-hit {
+  fill: transparent;
+  cursor: pointer;
+}
+
+.chart-bar.is-dimmed {
+  opacity: 0.45;
+}
+
+.chart-tooltip {
+  position: absolute;
+  z-index: 5;
+  min-width: 120px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-card);
+  box-shadow: var(--shadow-md);
+  font-size: 0.8rem;
+  pointer-events: none;
+  transform: translate(-50%, calc(-100% - 14px));
+  white-space: nowrap;
+}
+
+.chart-tooltip-label {
+  margin-bottom: 4px;
+  color: var(--text-muted);
+}
+
+.chart-tooltip-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+}
+
+.chart-tooltip-row strong {
+  color: var(--text-primary);
+  font-size: 0.92rem;
+}
+
+.tooltip-key {
+  display: inline-block;
+  width: 12px;
+  height: 2px;
+  border-radius: 2px;
+}
+
+/* ---------- Legend ---------- */
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+  color: var(--text-secondary);
+  font-size: 0.84rem;
+}
+
+.chart-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chart-legend-vertical {
+  flex-direction: column;
+  flex: 1;
+  gap: 12px;
+  min-width: 180px;
+  margin: 0;
+}
+
+.chart-legend-vertical li {
+  justify-content: space-between;
+}
+
+.legend-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.legend-value {
+  color: var(--text-primary);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.legend-value small {
+  margin-left: 4px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.legend-swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* ---------- Donut ---------- */
+
+.donut {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.donut svg {
+  display: block;
+}
+
+.donut-track {
+  fill: none;
+  stroke: var(--chart-grid);
+}
+
+.donut-segment {
+  fill: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.donut:has(.donut-segment.is-active) .donut-segment:not(.is-active) {
+  opacity: 0.45;
+}
+
+.donut-segment:focus-visible {
+  outline: none;
+}
+
+.donut-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.donut-center strong {
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.donut-center span {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* ---------- Chart / Table toggle ---------- */
+
+.view-toggle {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-subtle);
+}
+
+.view-toggle button {
+  padding: 4px 10px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.view-toggle button[aria-pressed='true'] {
+  background: var(--surface-card);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.chart-refreshing {
+  opacity: 0.55;
+  transition: opacity 0.2s;
+}

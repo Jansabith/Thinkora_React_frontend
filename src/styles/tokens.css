@@ -1,0 +1,155 @@
+/* =========================================================
+   Design tokens: every colour, font, radius and shadow lives here.
+   Components use these variables, so light and dark mode change in ONE place.
+   The theme is set on <html data-theme="light|dark"> by ThemeProvider.
+   ========================================================= */
+
+:root {
+  color-scheme: light;
+
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-script: 'Caveat', 'Segoe Script', 'Bradley Hand', cursive;
+  --font-code: ui-monospace, 'Cascadia Code', Consolas, monospace;
+
+  /* Brand */
+  --color-primary: #3155f0;
+  --color-primary-strong: #2340c9;
+  --color-primary-soft: #eef2ff;
+  --color-primary-border: #c7d2fe;
+  --gradient-primary: linear-gradient(135deg, #3b63f6 0%, #4f46e5 100%);
+  --gradient-text: linear-gradient(90deg, #2f5bff 0%, #6d4df2 100%);
+  --shadow-primary: 0 10px 22px -12px rgba(59, 99, 246, 0.75);
+
+  /* Status */
+  --color-success: #15803d;
+  --color-success-strong: #166534;
+  --color-success-soft: #ecfdf3;
+  --color-success-border: #a7f3d0;
+  --color-warning: #b45309;
+  --color-warning-strong: #92400e;
+  --color-warning-soft: #fff7e8;
+  --color-warning-border: #fcd34d;
+  --color-danger: #dc2626;
+  --color-danger-strong: #b91c1c;
+  --color-danger-soft: #fef2f2;
+  --color-danger-border: #fca5a5;
+
+  /* Text */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-on-dark: #ffffff;
+
+  /* Surfaces */
+  --surface-page: #f4f6fb;
+  --surface-card: #ffffff;
+  --surface-subtle: #f8fafd;
+  --surface-hover: #f1f4f9;
+  --surface-code: #0f172a;
+  --border: #e4e8f1;
+  --border-strong: #cfd6e3;
+  --input-bg: #ffffff;
+  --overlay: rgba(15, 23, 42, 0.45);
+
+  /* Soft tints for stat tiles and icons */
+  --tint-blue: #eef3ff;
+  --tint-green: #eafaf1;
+  --tint-violet: #f3efff;
+  --tint-amber: #fff5e6;
+  --tint-rose: #fff0f3;
+  --icon-blue: #3b6cf6;
+  --icon-green: #16a34a;
+  --icon-violet: #7c5cfc;
+  --icon-amber: #f59e0b;
+  --icon-rose: #e11d48;
+
+  /* Sidebar (dark navy in both themes) */
+  --sidebar-bg: linear-gradient(180deg, #111c44 0%, #0b1433 100%);
+  --sidebar-text: #c7cfe6;
+  --sidebar-muted: #7d89ad;
+  --sidebar-hover: rgba(255, 255, 255, 0.06);
+  --sidebar-border: rgba(255, 255, 255, 0.09);
+  --sidebar-active: linear-gradient(135deg, #3a5cf5 0%, #4f46e5 100%);
+
+  /* Charts: validated categorical slots (colour-blind safe on this surface) */
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-other: #94a3b8;
+  --status-good: #0ca30c;
+  --chart-grid: #e8ecf3;
+  --chart-axis: #cbd2de;
+
+  /* Shape */
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 12px 28px -16px rgba(15, 23, 42, 0.22);
+  --shadow-lg: 0 24px 48px -24px rgba(30, 41, 99, 0.35);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-primary: #6e8bff;
+  --color-primary-strong: #93a8ff;
+  --color-primary-soft: rgba(110, 139, 255, 0.14);
+  --color-primary-border: rgba(110, 139, 255, 0.4);
+  --gradient-primary: linear-gradient(135deg, #4468f7 0%, #5b4ff0 100%);
+  --gradient-text: linear-gradient(90deg, #7f9bff 0%, #a78bfa 100%);
+  --shadow-primary: 0 10px 22px -12px rgba(68, 104, 247, 0.8);
+
+  --color-success: #16a34a;
+  --color-success-strong: #4ade80;
+  --color-success-soft: rgba(34, 197, 94, 0.14);
+  --color-success-border: rgba(34, 197, 94, 0.4);
+  --color-warning: #d97706;
+  --color-warning-strong: #fbbf24;
+  --color-warning-soft: rgba(245, 158, 11, 0.14);
+  --color-warning-border: rgba(245, 158, 11, 0.4);
+  --color-danger: #ef4444;
+  --color-danger-strong: #f87171;
+  --color-danger-soft: rgba(239, 68, 68, 0.14);
+  --color-danger-border: rgba(239, 68, 68, 0.4);
+
+  --text-primary: #e8edf8;
+  --text-secondary: #b4bed6;
+  --text-muted: #8d98b5;
+
+  --surface-page: #0b1224;
+  --surface-card: #131c31;
+  --surface-subtle: #172139;
+  --surface-hover: #1c2743;
+  --surface-code: #0a1020;
+  --border: #243152;
+  --border-strong: #33426b;
+  --input-bg: #0f182c;
+  --overlay: rgba(2, 6, 23, 0.65);
+
+  --tint-blue: rgba(59, 108, 246, 0.16);
+  --tint-green: rgba(22, 163, 74, 0.16);
+  --tint-violet: rgba(124, 92, 252, 0.18);
+  --tint-amber: rgba(245, 158, 11, 0.16);
+  --tint-rose: rgba(225, 29, 72, 0.16);
+  --icon-blue: #7b9dff;
+  --icon-green: #4ade80;
+  --icon-violet: #a893ff;
+  --icon-amber: #fbbf24;
+  --icon-rose: #fb7185;
+
+  --sidebar-bg: linear-gradient(180deg, #0c1535 0%, #070d22 100%);
+
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-other: #64748b;
+  --chart-grid: #222c46;
+  --chart-axis: #34405f;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 14px 30px -16px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 24px 48px -24px rgba(0, 0, 0, 0.7);
+}

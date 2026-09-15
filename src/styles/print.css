@@ -1,0 +1,29 @@
+/* When printing (for example a certificate), only the page content is printed. */
+
+@media print {
+  .sidebar,
+  .topbar,
+  .sidebar-backdrop,
+  .no-print {
+    display: none !important;
+  }
+
+  .app-shell {
+    display: block;
+  }
+
+  .shell-content {
+    max-width: none;
+    padding: 0;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  .certificate {
+    border-color: #cbd5e1;
+    box-shadow: none;
+    break-inside: avoid;
+  }
+}
