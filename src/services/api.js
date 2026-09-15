@@ -1,7 +1,12 @@
 // Base address of the Django API.
 // Development: http://127.0.0.1:8000 (from .env)
-// Production:  '' (empty, from .env.production), so requests go to the same domain: /api/...
+// Production:  '' (empty, from .env.production) — requests stay on the same domain.
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? ''
+
+// The URL prefix for API endpoints.
+// Development: /api  (Django serves directly at /api/...)
+// Production:  /thinkora-api  (Vercel → Nginx → Django)
+const API_PREFIX = import.meta.env.VITE_API_PREFIX ?? '/api'
 
 const TOKEN_STORAGE_KEY = 'lms_token'
 
@@ -108,7 +113,7 @@ export async function apiRequest(path, { method = 'GET', body, auth = true } = {
 
   let response
   try {
-    response = await fetch(`${API_BASE_URL}/api${path}`, {
+    response = await fetch(`${API_BASE_URL}${API_PREFIX}${path}`, {
       method,
       headers,
       body: body === undefined ? undefined : body instanceof FormData ? body : JSON.stringify(body),
