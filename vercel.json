@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/thinkora-api/:path*",
-      "destination": "http://ec2-13-62-105-84.eu-north-1.compute.amazonaws.com/thinkora-api/:path*"
+      "source": "/thinkora-api/(.*)",
+      "destination": "/api/proxy?__proxy_path=$1"
     },
     {
       "source": "/(.*)",

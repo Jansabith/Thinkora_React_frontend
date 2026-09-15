@@ -5,7 +5,7 @@
  * the real path passed as the __proxy_path query parameter.
  */
 
-const BACKEND = 'http://13.62.105.84:8001';
+const BACKEND = 'http://ec2-13-62-105-84.eu-north-1.compute.amazonaws.com';
 
 /** Read the raw request body into a Buffer. */
 function readBody(req) {
@@ -25,7 +25,7 @@ export default async function handler(req, res) {
   url.searchParams.delete('__proxy_path');
   const remaining = url.searchParams.toString();
 
-  const target = `${BACKEND}/api/${proxyPath}${remaining ? '?' + remaining : ''}`;
+  const target = `${BACKEND}/thinkora-api/${proxyPath}${remaining ? '?' + remaining : ''}`;
 
   // Forward headers (skip hop-by-hop ones)
   const headers = {};
