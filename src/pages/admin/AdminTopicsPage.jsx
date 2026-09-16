@@ -62,9 +62,9 @@ function AdminTopicsPage() {
 
       {message && <Alert type={message.type}>{message.text}</Alert>}
 
-      {formTopic && courses && (
+      {formTopic && !formTopic.id && courses && (
         <TopicForm
-          key={formTopic.id ?? 'new'}
+          key="new"
           initialTopic={formTopic}
           courseId={formTopic.course ?? courseId}
           courses={courses}
@@ -117,35 +117,51 @@ function AdminTopicsPage() {
             </thead>
             <tbody>
               {topics.map((topic) => (
-                <tr key={topic.id}>
-                  <td>
-                    <strong>{topic.title}</strong>
-                    {topic.description && <span className="cell-sub">{topic.description}</span>}
-                  </td>
-                  <td>
-                    <Link to={`/admin/courses/${topic.course}`}>{topic.course_title}</Link>
-                  </td>
-                  <td>
-                    <DifficultyCounts topic={topic} />
-                  </td>
-                  <td className="numeric">{topic.video_count}</td>
-                  <td>
-                    <div className="table-actions">
-                      <Link to={`/admin/topics/${topic.id}/questions`} className="btn btn-primary btn-small">
-                        Questions
-                      </Link>
-                      <Link to={`/admin/topics/${topic.id}/videos`} className="btn btn-secondary btn-small">
-                        Videos
-                      </Link>
-                      <button type="button" className="btn btn-secondary btn-small" onClick={() => setFormTopic(topic)}>
-                        Edit
-                      </button>
-                      <button type="button" className="btn btn-danger btn-small" onClick={() => handleDelete(topic)}>
-                        Delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
+                formTopic?.id === topic.id ? (
+                  <tr key={topic.id} className="editing-row">
+                    <td colSpan="5" style={{ padding: '0' }}>
+                      <div style={{ padding: '16px', background: 'var(--bg-muted)', borderLeft: '4px solid var(--color-primary)' }}>
+                        <TopicForm
+                          initialTopic={formTopic}
+                          courseId={formTopic.course ?? courseId}
+                          courses={courses}
+                          onSaved={handleSaved}
+                          onCancel={() => setFormTopic(null)}
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                ) : (
+                  <tr key={topic.id}>
+                    <td>
+                      <strong>{topic.title}</strong>
+                      {topic.description && <span className="cell-sub">{topic.description}</span>}
+                    </td>
+                    <td>
+                      <Link to={`/admin/courses/${topic.course}`}>{topic.course_title}</Link>
+                    </td>
+                    <td>
+                      <DifficultyCounts topic={topic} />
+                    </td>
+                    <td className="numeric">{topic.video_count}</td>
+                    <td>
+                      <div className="table-actions">
+                        <Link to={`/admin/topics/${topic.id}/questions`} className="btn btn-primary btn-small">
+                          Questions
+                        </Link>
+                        <Link to={`/admin/topics/${topic.id}/videos`} className="btn btn-secondary btn-small">
+                          Videos
+                        </Link>
+                        <button type="button" className="btn btn-secondary btn-small" onClick={() => setFormTopic(topic)}>
+                          Edit
+                        </button>
+                        <button type="button" className="btn btn-danger btn-small" onClick={() => handleDelete(topic)}>
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                )
               ))}
             </tbody>
           </table>
