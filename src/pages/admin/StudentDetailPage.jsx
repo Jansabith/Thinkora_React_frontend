@@ -29,6 +29,9 @@ const ACTIVITY_FILTERS = [
 function AssignQuestionsPanel({ studentId, onAssigned }) {
   const [courseId, setCourseId] = useState('')
   const [topicId, setTopicId] = useState('')
+  const [difficulty, setDifficulty] = useState('')
+  const [page, setPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
   const [questions, setQuestions] = useState([])
   const [selectedIds, setSelectedIds] = useState(new Set())
   const [alreadyAssigned, setAlreadyAssigned] = useState(new Set())
@@ -52,15 +55,22 @@ function AssignQuestionsPanel({ studentId, onAssigned }) {
     fetchAssigned()
   }, [studentId])
 
+  useEffect(() => {
+    setPage(1)
+  }, [courseId, topicId, difficulty])
+
   const loadQuestions = async () => {
-    if (!topicId) {
-      setQuestions([])
-      return
-    }
+    // We allow fetching if either course or topic is selected, or if nothing is selected to show all
     setIsLoading(true)
     try {
-      const data = await getAllQuestions({ course: courseId, topic: topicId }) 
+      const filters = { page }
+      if (courseId) filters.course = courseId
+      if (topicId) filters.topic = topicId
+      if (difficulty) filters.difficulty = difficulty
+      
+      const data = await getAllQuestions(filters) 
       setQuestions(data.results || [])
+      setTotalPages(Math.ceil((data.count || 0) / 20) || 1)
     } catch (e) {
       console.error(e)
     } finally {
@@ -68,7 +78,7 @@ function AssignQuestionsPanel({ studentId, onAssigned }) {
     }
   }
 
-  useEffect(() => { loadQuestions() }, [topicId])
+  useEffect(() => { loadQuestions() }, [courseId, topicId, difficulty, page])
 
   const handleToggle = (id) => {
     const next = new Set(selectedIds)
@@ -97,48 +107,71 @@ function AssignQuestionsPanel({ studentId, onAssigned }) {
       <div className="form-row">
         <FormField label="Course" htmlFor="assign-course">
           <select id="assign-course" value={courseId} onChange={(e) => { setCourseId(e.target.value); setTopicId('') }}>
-            <option value="">Choose a course</option>
+            <option value="">All courses</option>
             {(courses || []).map(c => <option key={c.id} value={c.id}>{c.title}</option>)}
           </select>
         </FormField>
         <FormField label="Topic" htmlFor="assign-topic">
           <select id="assign-topic" value={topicId} onChange={(e) => setTopicId(e.target.value)} disabled={!courseId}>
-            <option value="">{courseId ? 'Choose a topic' : 'Choose course first'}</option>
+            <option value="">{courseId ? 'All topics' : 'Choose course first'}</option>
             {(topics || []).map(t => <option key={t.id} value={t.id}>{t.title}</option>)}
+          </select>
+        </FormField>
+        <FormField label="Difficulty" htmlFor="assign-difficulty">
+          <select id="assign-difficulty" value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
+            <option value="">Any difficulty</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
           </select>
         </FormField>
       </div>
 
       {isLoading && <p>Loading questions...</p>}
-      {!isLoading && topicId && questions.length === 0 && <p className="empty-state">No questions found in this topic.</p>}
+      {!isLoading && questions.length === 0 && <p className="empty-state">No questions found.</p>}
 
       {!isLoading && questions.length > 0 && (
-        <div className="table-wrapper table-flat" style={{ marginTop: '1rem', maxHeight: '300px', overflowY: 'auto' }}>
-          <table>
-            <thead>
-              <tr>
-                <th style={{ width: '40px' }}></th>
-                <th>Question</th>
-                <th>Difficulty</th>
-              </tr>
-            </thead>
-            <tbody>
-              {questions.map(q => (
-                <tr key={q.id}>
-                  <td>
-                    {alreadyAssigned.has(q.id) ? (
-                      <span className="badge badge-success" style={{ fontSize: '10px' }}>Assigned</span>
-                    ) : (
-                      <input type="checkbox" checked={selectedIds.has(q.id)} onChange={() => handleToggle(q.id)} />
-                    )}
-                  </td>
-                  <td>{q.text}</td>
-                  <td><StatusBadge status={q.difficulty} /></td>
+        <>
+          <div className="table-wrapper table-flat" style={{ marginTop: '1rem', maxHeight: '300px', overflowY: 'auto' }}>
+            <table>
+              <thead>
+                <tr>
+                  <th style={{ width: '40px' }}></th>
+                  <th>Question</th>
+                  <th>Difficulty</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {questions.map(q => (
+                  <tr key={q.id}>
+                    <td>
+                      {alreadyAssigned.has(q.id) ? (
+                        <span className="badge badge-success" style={{ fontSize: '10px' }}>Assigned</span>
+                      ) : (
+                        <input type="checkbox" checked={selectedIds.has(q.id)} onChange={() => handleToggle(q.id)} />
+                      )}
+                    </td>
+                    <td>{q.text}</td>
+                    <td><StatusBadge status={q.difficulty} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {totalPages > 1 && (
+            <div className="pagination" style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginTop: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
+              <button type="button" className="btn btn-secondary btn-small" disabled={page === 1} onClick={() => setPage(p => p - 1)}>
+                Prev
+              </button>
+              <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+                <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Page {page} of {totalPages}</span>
+              </div>
+              <button type="button" className="btn btn-secondary btn-small" disabled={page === totalPages} onClick={() => setPage(p => p + 1)}>
+                Next
+              </button>
+            </div>
+          )}
+        </>
       )}
 
       <div className="form-actions" style={{ marginTop: '1rem' }}>

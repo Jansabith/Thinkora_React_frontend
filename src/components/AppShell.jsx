@@ -5,6 +5,7 @@ import { useAuth } from '../hooks/useAuth'
 import Sidebar from './Sidebar'
 import Topbar from './Topbar'
 import WelcomeOverlay from './WelcomeOverlay'
+import FloatingChat from './FloatingChat'
 
 const REFRESH_EVERY_MS = 60000
 
@@ -62,6 +63,8 @@ function AppShell() {
           onComplete={() => setShowWelcome(false)} 
         />
       )}
+
+      {user && <FloatingChat />}
     </div>
   )
 }
