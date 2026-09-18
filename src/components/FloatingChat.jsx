@@ -132,8 +132,13 @@ function FloatingChat() {
     <div className="floating-chat-wrapper">
       {!isOpen && (
         <button className="chat-toggle-btn" onClick={handleOpenChat} aria-label="Open Chat">
-          <MessageSquare size={24} />
-          <span className="chat-toggle-text">Chat with Students</span>
+          <MessageSquare size={20} />
+          <span className="chat-toggle-text">Chat with Students and Teachers</span>
+          {onlineUsers.length > 0 && (
+            <span className="online-badge" title={`${onlineUsers.length} online`}>
+              <span className="status-dot-small"></span> {onlineUsers.length}
+            </span>
+          )}
           {totalUnread > 0 && <span className="badge">{totalUnread}</span>}
         </button>
       )}
