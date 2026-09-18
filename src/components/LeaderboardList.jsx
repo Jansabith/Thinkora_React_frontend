@@ -7,23 +7,23 @@ function LeaderboardList({ leaders, compact = false }) {
   return (
     <ol className={`leaderboard ${compact ? 'leaderboard-compact' : ''}`}>
       {leaders.map((row) => (
-        <li key={row.student_id} className={`leaderboard-row ${row.is_me ? 'is-me' : ''}`}>
+        <li key={row.student_id} className={`leaderboard-row ${row.is_me ? 'is-me' : ''} ${row.rank === 1 ? 'is-first' : ''}`}>
           <span className={`leaderboard-rank rank-${Math.min(row.rank, 4)}`}>
             <span className="sr-only">Rank </span>
             {row.rank <= 3 ? (
-              <span style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
-                {row.rank} <Trophy size={14} strokeWidth={2.5} />
-              </span>
+              <>
+                {row.rank} <Trophy size={16} strokeWidth={2.5} />
+              </>
             ) : (
               row.rank
             )}
           </span>
-          <Avatar name={row.name} size={compact ? 32 : 38} />
+          <Avatar name={row.name} size={compact ? 36 : 42} />
           <span className="leaderboard-name">
-            <span className="leaderboard-name-text" title={row.name}>
+            <span className={`leaderboard-name-text ${row.rank === 1 ? 'rank-1-name' : ''}`} title={row.name}>
               {row.name}
             </span>
-            {row.is_me && <span className="badge badge-new">You</span>}
+            {row.is_me && <span className="leaderboard-you-badge">You</span>}
           </span>
           <span className="leaderboard-score">
             <strong>{row.done_count}</strong>

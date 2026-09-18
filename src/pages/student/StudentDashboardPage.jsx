@@ -159,10 +159,10 @@ function StudentDashboardPage() {
         </div>
 
         <aside className="dashboard-column dashboard-side" aria-label="Calendar and tasks">
+          <LeaderboardPanel />
           <Panel>
             <ActivityCalendar />
           </Panel>
-          <LeaderboardPanel />
           <TasksWidget title="Today's Tasks" placeholder="Add a task, e.g. Solve 5 questions" />
         </aside>
       </div>
