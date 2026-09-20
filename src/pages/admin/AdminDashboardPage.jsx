@@ -8,6 +8,7 @@ import BrandLogo from '../../components/BrandLogo'
 import ChartLegend from '../../components/charts/ChartLegend'
 import DonutChart from '../../components/charts/DonutChart'
 import StudentGrowthPanel from '../../components/charts/StudentGrowthPanel'
+import LeaderboardPanel from '../../components/LeaderboardPanel'
 import LoadError from '../../components/LoadError'
 import Loading from '../../components/Loading'
 import MountainScene from '../../components/MountainScene'
@@ -122,9 +123,14 @@ function AdminDashboardPage() {
         <StatTile tinted icon={CircleHelp} tone="amber" value={stats.questions.total} label="Total questions" delta={describeMonth(stats.questions)} />
       </div>
 
-      <div className="dashboard-row dashboard-row-1-1-1">
+      <div className="dashboard-row dashboard-row-2-1">
         <StudentGrowthPanel initialPoints={data.student_growth} />
 
+        {/* The same board students see, so admins can spot who is active this week. */}
+        <LeaderboardPanel fullPageLink="/admin/leaderboard" />
+      </div>
+
+      <div className="dashboard-row dashboard-row-2-1">
         <Panel title="Content Overview" subtitle="Courses by category">
           <div className="donut-with-legend">
             <DonutChart
