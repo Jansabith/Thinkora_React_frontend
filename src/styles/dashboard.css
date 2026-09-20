@@ -1074,6 +1074,17 @@ a.activity-item:hover {
   list-style: none;
 }
 
+/* Admins can click a row to open that student's page: it must still look like a row. */
+a.leaderboard-row {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a.leaderboard-row:hover .leaderboard-name-text {
+  text-decoration: underline;
+}
+
 .leaderboard-row {
   display: flex;
   align-items: center;
