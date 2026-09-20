@@ -16,6 +16,7 @@ import { pluralize } from '../utils/format'
 
 const PERIODS = [
   { value: 'week', label: 'This week' },
+  { value: 'last_week', label: 'Last week' },
   { value: 'month', label: 'This month' },
   { value: 'all', label: 'All time' },
 ]

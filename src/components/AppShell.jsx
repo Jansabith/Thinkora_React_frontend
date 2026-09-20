@@ -5,6 +5,7 @@ import { useAuth } from '../hooks/useAuth'
 import Sidebar from './Sidebar'
 import Topbar from './Topbar'
 import WelcomeOverlay from './WelcomeOverlay'
+import LeaderboardPopup from './LeaderboardPopup'
 import FloatingChat from './FloatingChat'
 
 const REFRESH_EVERY_MS = 60000
@@ -23,6 +24,9 @@ function AppShell() {
     }
     return false
   })
+  // After the "Hi, <name>!" greeting fades, show this week's leaderboard once.
+  // Students and admins both get it; it only appears on a fresh login.
+  const [showLeaderboard, setShowLeaderboard] = useState(false)
 
   const refreshNotifications = useCallback(() => {
     getNotifications()
@@ -58,11 +62,16 @@ function AppShell() {
       </div>
 
       {showWelcome && (
-        <WelcomeOverlay 
-          name={user?.first_name || user?.username || 'there'} 
-          onComplete={() => setShowWelcome(false)} 
+        <WelcomeOverlay
+          name={user?.first_name || user?.username || 'there'}
+          onComplete={() => {
+            setShowWelcome(false)
+            setShowLeaderboard(true)
+          }}
         />
       )}
+
+      {showLeaderboard && <LeaderboardPopup onClose={() => setShowLeaderboard(false)} />}
 
       {user && <FloatingChat />}
     </div>
