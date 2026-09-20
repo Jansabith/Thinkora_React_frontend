@@ -17,16 +17,19 @@ function AppShell() {
   const location = useLocation()
   const [notifications, setNotifications] = useState(null)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-  const [showWelcome, setShowWelcome] = useState(() => {
+  // True only when the user just signed in on the login page (read once, then cleared).
+  const [justLoggedIn] = useState(() => {
     if (sessionStorage.getItem('justLoggedIn')) {
       sessionStorage.removeItem('justLoggedIn')
       return true
     }
     return false
   })
-  // After the "Hi, <name>!" greeting fades, show this week's leaderboard once.
-  // Students and admins both get it; it only appears on a fresh login.
-  const [showLeaderboard, setShowLeaderboard] = useState(false)
+  const [showWelcome, setShowWelcome] = useState(justLoggedIn)
+  // Last week's leaderboard shows on EVERY page load and refresh, for students
+  // and admins alike. After a fresh login it waits for the "Hi, <name>!" greeting
+  // to fade first; otherwise it appears straight away.
+  const [showLeaderboard, setShowLeaderboard] = useState(!justLoggedIn)
 
   const refreshNotifications = useCallback(() => {
     getNotifications()
