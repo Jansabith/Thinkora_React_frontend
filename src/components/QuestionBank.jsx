@@ -109,7 +109,7 @@ function QuestionBank({ fixedStatus = '', emptyText = 'No questions match these 
         {!fixedStatus && <FilterTabs options={STATUS_OPTIONS} value={status} onChange={withFirstPage(setStatus)} label="Filter by status" />}
       </div>
 
-      {isLoading && !data && <Loading message="Loading questions..." />}
+      {isLoading && !data && <Loading message="Loading questions..." variant="list" count={5} />}
       {error && <LoadError error={error} onRetry={reload} />}
 
       {data && (

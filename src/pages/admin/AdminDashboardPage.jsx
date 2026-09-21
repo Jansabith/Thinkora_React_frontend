@@ -190,7 +190,7 @@ function AdminDashboardPage() {
                       <tr key={student.id}>
                         <td>
                           <Link to={`/admin/students/${student.id}`} className="person-cell" style={{ color: 'inherit', textDecoration: 'none' }}>
-                            <Avatar name={getFullName(student)} size={32} />
+                            <Avatar name={getFullName(student)} size={32} color={student.avatar_color} icon={student.avatar_icon} />
                             <span>
                               <strong>{getFullName(student)}</strong>
                               <span className="cell-sub">{student.email}</span>

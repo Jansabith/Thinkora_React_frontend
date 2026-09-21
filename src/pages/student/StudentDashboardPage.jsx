@@ -100,7 +100,7 @@ function StudentDashboardPage() {
   const { data, error, isLoading, reload } = useApiData(getStudentDashboard)
 
   if (isLoading) {
-    return <Loading message="Loading your dashboard..." />
+    return <Loading message="Loading your dashboard..." variant="stats" count={4} />
   }
   if (error) {
     return <LoadError error={error} onRetry={reload} />

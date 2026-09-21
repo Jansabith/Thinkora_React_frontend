@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router'
 import App from './App.jsx'
+import ViewTransitions from './components/ViewTransitions.jsx'
 import { AuthProvider } from './context/AuthProvider.jsx'
 import { SplashProvider } from './context/SplashProvider.jsx'
 import { ThemeProvider } from './context/ThemeProvider.jsx'
@@ -15,6 +16,8 @@ import './styles/dashboard.css'
 import './styles/charts.css'
 import './styles/auth.css'
 import './styles/splash.css'
+import './styles/skeleton.css'
+import './styles/transitions.css'
 import './styles/print.css'
 
 // BrowserRouter: lets React show different pages for different URLs.
@@ -26,7 +29,7 @@ createRoot(document.getElementById('root')).render(
       <ThemeProvider>
         <SplashProvider>
           <AuthProvider>
-            <App />
+            <ViewTransitions>{(location) => <App location={location} />}</ViewTransitions>
           </AuthProvider>
         </SplashProvider>
       </ThemeProvider>

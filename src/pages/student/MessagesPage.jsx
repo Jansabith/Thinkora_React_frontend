@@ -37,7 +37,7 @@ function MessagesPage() {
   }, [messages, refreshNotifications])
 
   if (isLoading) {
-    return <Loading message="Loading messages..." />
+    return <Loading message="Loading messages..." variant="list" count={5} />
   }
   if (error) {
     return <LoadError error={error} onRetry={reload} />

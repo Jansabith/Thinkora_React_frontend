@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router'
 import Alert from '../components/Alert'
 import Avatar from '../components/Avatar'
+import AvatarPicker from '../components/AvatarPicker'
 import FormField from '../components/FormField'
 import PageHeader from '../components/PageHeader'
 import Panel from '../components/Panel'
@@ -52,7 +53,7 @@ function ProfilePage() {
       <div className="profile-grid">
         <Panel>
           <div className="profile-identity">
-            <Avatar name={getFullName(user)} size={64} />
+            <Avatar name={getFullName(user)} size={64} color={user.avatar_color} icon={user.avatar_icon} />
             <div>
               <h2>{getFullName(user)}</h2>
               <span className="muted">@{user.username}</span>
@@ -97,6 +98,10 @@ function ProfilePage() {
               {isSaving ? 'Saving...' : 'Save details'}
             </button>
           </form>
+        </Panel>
+
+        <Panel title="Appearance">
+          <AvatarPicker user={user} onSaved={updateUser} />
         </Panel>
       </div>
     </>

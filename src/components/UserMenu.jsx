@@ -32,7 +32,7 @@ function UserMenu() {
         aria-expanded={isOpen}
         onClick={() => setIsOpen((open) => !open)}
       >
-        <Avatar name={name} size={40} />
+        <Avatar name={name} size={40} color={user.avatar_color} icon={user.avatar_icon} />
         <span className="user-menu-text">
           <span className="user-menu-name">{name}</span>
           <span className="user-menu-role">{ROLE_LABELS[user.role]}</span>

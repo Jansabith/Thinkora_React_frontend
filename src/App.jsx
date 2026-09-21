@@ -42,9 +42,11 @@ import TopicQuestionsPage from './pages/student/TopicQuestionsPage'
 import TopicVideosPage from './pages/student/TopicVideosPage'
 import { ADMIN_ROLES } from './utils/auth'
 
-function App() {
+// `location` comes from ViewTransitions: while a page cross-fade is running it is
+// the OLD location, which is what keeps the previous page on screen for one frame.
+function App({ location }) {
   return (
-    <Routes>
+    <Routes location={location}>
       {/* Public home page */}
       <Route element={<PublicLayout />}>
         <Route index element={<HomePage />} />

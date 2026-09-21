@@ -543,6 +543,128 @@
   color: #fff;
   font-weight: 700;
   letter-spacing: 0.02em;
+  /* Emoji avatars need a tight line box to sit in the middle of the circle. */
+  line-height: 1;
+  user-select: none;
+}
+
+.avatar-ring {
+  box-shadow:
+    0 0 0 3px var(--surface-card),
+    0 0 0 6px var(--color-primary-border);
+}
+
+/* ---------- Avatar picker (profile page) ---------- */
+
+.avatar-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.avatar-picker-preview {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.avatar-picker-preview h3 {
+  margin: 0 0 4px;
+  font-size: 1.05rem;
+}
+
+.avatar-picker-preview p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.avatar-picker-group {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.avatar-picker-group legend {
+  padding: 0 0 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.avatar-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.avatar-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.avatar-swatch:hover {
+  transform: scale(1.08);
+}
+
+.avatar-swatch.is-selected {
+  box-shadow:
+    0 0 0 3px var(--surface-card),
+    0 0 0 6px var(--color-primary);
+}
+
+.avatar-icons {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  gap: 8px;
+}
+
+.avatar-icon-option {
+  aspect-ratio: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  line-height: 1;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface-subtle);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.avatar-icon-option:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+}
+
+.avatar-icon-option.is-selected {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .avatar-swatch,
+  .avatar-icon-option {
+    transition: none;
+  }
+
+  .avatar-swatch:hover,
+  .avatar-icon-option:hover {
+    transform: none;
+  }
 }
 
 /* ---------- Public header (home page) ---------- */

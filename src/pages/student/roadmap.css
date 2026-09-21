@@ -1,117 +1,396 @@
-.roadmap-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem 0;
-}
+/* =========================================================
+   Course roadmap: the student's climb through a course.
+   Uses the design tokens from styles/tokens.css.
+   ========================================================= */
 
-.roadmap-timeline {
+/* ---------- Hero banner ---------- */
+
+.roadmap-hero {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  margin-bottom: 28px;
+  isolation: isolate;
 }
 
-.roadmap-timeline::before {
+.roadmap-hero-scene {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.roadmap-hero-scene svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* A dark wash so white text stays readable over any part of the picture. */
+.roadmap-hero::after {
   content: '';
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 24px;
-  width: 4px;
-  background: var(--border-color);
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(8, 13, 38, 0.86) 0%, rgba(8, 13, 38, 0.55) 62%, rgba(8, 13, 38, 0.2) 100%);
+}
+
+.roadmap-hero-content {
+  position: relative;
+  max-width: 460px;
+  padding: 30px 28px;
+  color: #fff;
+}
+
+.roadmap-hero-eyebrow {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.roadmap-hero-count {
+  margin: 6px 0 14px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.roadmap-hero-count strong {
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-right: 4px;
+}
+
+.roadmap-hero-note {
+  margin: 14px 0 0;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* The shared progress bar needs light colours on this dark banner. */
+.roadmap-hero .progress-track {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.roadmap-hero .progress-fill {
+  background: linear-gradient(90deg, #7ee7a6 0%, #4ade80 100%);
+}
+
+.roadmap-hero .progress-text {
+  color: #fff;
+  font-weight: 700;
+}
+
+/* The shared fireworks canvas sits at z-index 0 for the login popup.
+   On this page it must rise above the cards to be seen. */
+.roadmap-celebration .fireworks-canvas {
+  z-index: 60;
+}
+
+.roadmap-error {
+  margin: 0 0 16px;
+  color: var(--color-danger);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* ---------- The trail ---------- */
+
+.roadmap {
+  position: relative;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.roadmap-trail {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
   z-index: 0;
 }
 
-.roadmap-node {
-  display: flex;
-  gap: 1.5rem;
+.roadmap-trail-segment {
+  fill: none;
+  stroke: var(--border-strong);
+  stroke-width: 5;
+  stroke-linecap: round;
+  /* A dotted path for the part of the climb still ahead. */
+  stroke-dasharray: 1 13;
+  opacity: 0.85;
+}
+
+.roadmap-trail-segment.is-walked {
+  stroke: var(--color-success);
+  stroke-width: 6;
+  stroke-dasharray: none;
+  opacity: 1;
+}
+
+/* ---------- Steps ---------- */
+
+.roadmap-steps {
   position: relative;
   z-index: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
 }
+
+.roadmap-step {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+/* ---------- Marker ---------- */
 
 .roadmap-marker {
-  width: 52px;
-  height: 52px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  background: var(--bg-card);
-  border: 4px solid var(--border-color);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
-  font-size: 1.2rem;
-  color: var(--text-muted);
   flex-shrink: 0;
-  transition: all 0.3s ease;
+  font-size: 1.25rem;
+  font-weight: 800;
+  background: var(--surface-card);
+  border: 4px solid var(--border-strong);
+  color: var(--text-muted);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease;
 }
+
+.roadmap-step.is-done .roadmap-marker {
+  background: var(--color-success);
+  border-color: var(--color-success);
+  color: #fff;
+}
+
+.roadmap-step.is-open .roadmap-marker {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.roadmap-step.is-locked .roadmap-marker {
+  background: var(--surface-subtle);
+  border-color: var(--border);
+  color: var(--text-muted);
+}
+
+/* The step the student should do next gently breathes, to draw the eye. */
+.roadmap-step.is-current .roadmap-marker {
+  background: var(--gradient-primary);
+  border-color: transparent;
+  color: #fff;
+  animation: roadmap-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes roadmap-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 var(--color-primary-border);
+  }
+  50% {
+    box-shadow: 0 0 0 12px transparent;
+  }
+}
+
+/* ---------- Card ---------- */
 
 .roadmap-card {
-  flex: 1;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
-.roadmap-card h3 {
-  margin: 0 0 0.5rem 0;
+.roadmap-step.is-open .roadmap-card:hover,
+.roadmap-step.is-current .roadmap-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
-.roadmap-card p {
-  margin: 0 0 1.5rem 0;
-  color: var(--text-muted);
+.roadmap-step.is-current .roadmap-card {
+  border-color: var(--color-primary-border);
+  box-shadow: var(--shadow-md);
+}
+
+.roadmap-step.is-done .roadmap-card {
+  border-color: var(--color-success-border);
+}
+
+/* Locked steps fade into the background instead of shouting. */
+.roadmap-step.is-locked .roadmap-card {
+  background: var(--surface-subtle);
+  opacity: 0.68;
+  filter: saturate(0.45);
+}
+
+.roadmap-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.roadmap-card-head h3 {
+  margin: 0;
+  font-size: 1.12rem;
+}
+
+.roadmap-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 99px;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary-border);
+}
+
+.roadmap-tag-done {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+  border-color: var(--color-success-border);
+}
+
+.roadmap-card-text {
+  margin: 0 0 14px;
+  color: var(--text-secondary);
   font-size: 0.95rem;
 }
 
-.roadmap-syllabus-list {
-  margin: -0.5rem 0 1.5rem 0;
-  padding-left: 1.5rem;
-  color: var(--text-color);
-  font-size: 0.95rem;
+.roadmap-syllabus {
+  margin: 0 0 16px;
+  padding-left: 18px;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
 }
 
-.roadmap-syllabus-list li {
-  margin-bottom: 0.25rem;
+.roadmap-syllabus li {
+  margin-bottom: 4px;
+}
+
+.roadmap-syllabus li::marker {
+  color: var(--color-primary);
 }
 
 .roadmap-actions {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.roadmap-actions .btn {
+  display: inline-flex;
   align-items: center;
-  gap: 1rem;
+  gap: 6px;
 }
 
-.btn-group {
+.roadmap-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 99px;
+  background: var(--surface-hover);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.roadmap-locked-note {
   display: flex;
-  gap: 0.5rem;
-}
-
-.locked-msg {
-  margin: 0 !important;
-  color: var(--color-danger) !important;
-  font-size: 0.85rem !important;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  font-size: 0.87rem;
   font-weight: 500;
+  color: var(--text-muted);
 }
 
-/* Active State */
-.roadmap-node.topic-active .roadmap-marker {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
-  box-shadow: 0 0 0 4px rgba(var(--color-primary-rgb), 0.1);
+/* ---------- Responsive ---------- */
+
+@media (max-width: 720px) {
+  .roadmap-hero-content {
+    max-width: none;
+    padding: 24px 20px;
+  }
+
+  .roadmap-hero::after {
+    background: linear-gradient(180deg, rgba(8, 13, 38, 0.6) 0%, rgba(8, 13, 38, 0.88) 100%);
+  }
+
+  .roadmap-hero-count strong {
+    font-size: 2.1rem;
+  }
+
+  .roadmap-step {
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .roadmap-marker {
+    width: 48px;
+    height: 48px;
+    border-width: 3px;
+    font-size: 1.05rem;
+  }
+
+  .roadmap-card {
+    padding: 16px;
+  }
+
+  .roadmap-actions .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
 }
 
-.roadmap-node.topic-active .roadmap-card {
-  border: 1px solid var(--color-primary);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+@media (max-width: 420px) {
+  .roadmap-step {
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .roadmap-marker {
+    width: 40px;
+    height: 40px;
+  }
 }
 
-/* Completed State */
-.roadmap-node.topic-completed .roadmap-marker {
-  background: var(--color-success);
-  border-color: var(--color-success);
-  color: white;
-}
+@media (prefers-reduced-motion: reduce) {
+  .roadmap-step.is-current .roadmap-marker {
+    animation: none;
+    box-shadow: 0 0 0 5px var(--color-primary-border);
+  }
 
-/* Locked State */
-.roadmap-node.topic-locked .roadmap-card {
-  opacity: 0.6;
-  background: var(--bg-body);
+  .roadmap-card,
+  .roadmap-marker {
+    transition: none;
+  }
 }

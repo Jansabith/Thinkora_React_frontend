@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { MessageSquare, X, Send, ChevronLeft, Smile } from 'lucide-react'
 import Picker from 'emoji-picker-react'
+import Avatar from './Avatar'
 import { apiRequest } from '../services/api'
 import { useAuth } from '../hooks/useAuth'
 import './FloatingChat.css'
@@ -168,9 +169,7 @@ function FloatingChat() {
                     
                     return (
                       <div key={user.id} className="user-item" onClick={() => openUserChat(user)} style={{ position: 'relative' }}>
-                        <div className="user-avatar">
-                          {user.name.charAt(0).toUpperCase()}
-                        </div>
+                        <Avatar name={user.name} size={40} color={user.avatar_color} icon={user.avatar_icon} />
                         <div className="user-info">
                           <div className="user-name">
                             {user.name}
@@ -201,9 +200,12 @@ function FloatingChat() {
                   <button className="back-btn" onClick={() => setActiveChatUser(null)}>
                     <ChevronLeft size={20} />
                   </button>
-                  <div className="user-avatar" style={{ width: 28, height: 28, fontSize: 12 }}>
-                    {activeChatUser.name.charAt(0).toUpperCase()}
-                  </div>
+                  <Avatar
+                    name={activeChatUser.name}
+                    size={28}
+                    color={activeChatUser.avatar_color}
+                    icon={activeChatUser.avatar_icon}
+                  />
                   <div style={{ fontWeight: 500, fontSize: 14 }}>{activeChatUser.name}</div>
                 </div>
 

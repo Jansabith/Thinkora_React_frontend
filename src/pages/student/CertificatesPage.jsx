@@ -19,7 +19,7 @@ function CertificatesPage() {
   const { data, error, isLoading, reload } = useApiData(loadData)
 
   if (isLoading) {
-    return <Loading message="Loading certificates..." />
+    return <Loading message="Loading certificates..." variant="cards" count={3} />
   }
   if (error) {
     return <LoadError error={error} onRetry={reload} />
