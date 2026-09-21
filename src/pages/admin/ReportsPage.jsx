@@ -117,7 +117,7 @@ function ReportsPage() {
               {data.top_students.map((student, index) => (
                 <li key={student.id}>
                   <span className="ranked-number">{index + 1}</span>
-                  <Avatar name={student.name} size={34} />
+                  <Avatar name={student.name} size={34} color={student.avatar_color} icon={student.avatar_icon} />
                   <Link to={`/admin/students/${student.id}`} className="ranked-name">
                     {student.name}
                     <span className="cell-sub">@{student.username}</span>

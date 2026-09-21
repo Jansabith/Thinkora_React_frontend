@@ -29,7 +29,7 @@ function LeaderboardList({ leaders, compact = false }) {
                 row.rank
               )}
             </span>
-            <Avatar name={row.name} size={compact ? 36 : 42} />
+            <Avatar name={row.name} size={compact ? 36 : 42} color={row.avatar_color} icon={row.avatar_icon} />
             <span className="leaderboard-name">
               <span className={`leaderboard-name-text ${row.rank === 1 ? 'rank-1-name' : ''}`} title={row.name}>
                 {row.name}

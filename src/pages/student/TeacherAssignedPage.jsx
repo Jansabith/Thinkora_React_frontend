@@ -31,7 +31,7 @@ function TeacherAssignedPage() {
     setProgressChanges(current => ({ ...current, [updatedProgress.question]: updatedProgress }))
   }
 
-  if (isLoading) return <Loading message="Loading assigned questions..." />
+  if (isLoading) return <Loading message="Loading assigned questions..." variant="list" count={5} />
   if (error) return <LoadError error={error} onRetry={reload} />
 
   return (

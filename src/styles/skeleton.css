@@ -1,0 +1,116 @@
+/* =========================================================
+   Skeletons: grey shimmer blocks shaped like the content that is loading.
+   They hold the layout still, so the page does not jump when data arrives.
+   ========================================================= */
+
+.skeleton {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  border-radius: var(--radius-sm);
+  background: var(--surface-hover);
+}
+
+/* A soft highlight sweeps left to right across every block. */
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent 0%, var(--surface-card) 55%, transparent 100%);
+  opacity: 0.75;
+  animation: skeleton-sweep 1.4s ease-in-out infinite;
+}
+
+@keyframes skeleton-sweep {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton-page {
+  display: block;
+  width: 100%;
+}
+
+.skeleton-text {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.skeleton-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px;
+}
+
+/* ---------- Layout presets ---------- */
+
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.skeleton-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px;
+}
+
+.skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.skeleton-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-card);
+}
+
+.skeleton-row-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.skeleton-roadmap {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.skeleton-roadmap-row {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 720px) {
+  .skeleton-roadmap-row {
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 14px;
+  }
+}
+
+/* The sweep is decoration. Without it the blocks are still a calm placeholder. */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after {
+    animation: none;
+    opacity: 0;
+  }
+}

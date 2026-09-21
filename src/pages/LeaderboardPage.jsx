@@ -31,7 +31,7 @@ function Podium({ leaders }) {
           <span className="podium-medal" aria-hidden="true">
             {row.rank === 1 ? <Trophy size={20} /> : <Medal size={20} />}
           </span>
-          <Avatar name={row.name} size={row.rank === 1 ? 64 : 52} />
+          <Avatar name={row.name} size={row.rank === 1 ? 64 : 52} color={row.avatar_color} icon={row.avatar_icon} />
           <strong>
             {row.name} {row.is_me && <span className="badge badge-new">You</span>}
           </strong>
@@ -99,7 +99,7 @@ function LeaderboardPage() {
         </select>
       </div>
 
-      {isLoading && !data && <Loading message="Loading leaderboard..." />}
+      {isLoading && !data && <Loading message="Loading leaderboard..." variant="list" count={6} />}
       {error && <LoadError error={error} onRetry={reload} />}
 
       {data && (

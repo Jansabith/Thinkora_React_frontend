@@ -17,7 +17,7 @@ function MyProgressPage() {
   const { data, error, isLoading, reload } = useApiData(getMyOverview)
 
   if (isLoading) {
-    return <Loading message="Loading your progress..." />
+    return <Loading message="Loading your progress..." variant="stats" count={4} />
   }
   if (error) {
     return <LoadError error={error} onRetry={reload} />

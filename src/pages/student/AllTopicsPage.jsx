@@ -24,7 +24,7 @@ function AllTopicsPage() {
   const { data, error, isLoading, reload } = useApiData(loadData)
 
   if (isLoading) {
-    return <Loading message="Loading topics..." />
+    return <Loading message="Loading topics..." variant="cards" count={6} />
   }
   if (error) {
     return <LoadError error={error} onRetry={reload} />

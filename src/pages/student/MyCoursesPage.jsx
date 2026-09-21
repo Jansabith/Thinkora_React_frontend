@@ -24,7 +24,7 @@ function MyCoursesPage() {
   const [search, setSearch] = useState('')
 
   if (isLoading) {
-    return <Loading message="Loading courses..." />
+    return <Loading message="Loading courses..." variant="cards" count={6} />
   }
   if (error) {
     return <LoadError error={error} onRetry={reload} />
