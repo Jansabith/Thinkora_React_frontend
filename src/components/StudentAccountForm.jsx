@@ -4,37 +4,24 @@ import { getFieldErrors } from '../services/api'
 import { updateStudent } from '../services/adminService'
 import Alert from './Alert'
 import FormField from './FormField'
-import { getCourses } from '../services/courseService'
-import { useApiData } from '../hooks/useApiData'
 
-// Admin: change a student's name and email, or give them a new password.
+// Admin: change a student's name, email and WhatsApp, or give them a new password.
+// Course access lives in its own section (see StudentCourseAccessForm).
 function StudentAccountForm({ student, onSaved }) {
   const [form, setForm] = useState({
     first_name: student.first_name,
     last_name: student.last_name,
     email: student.email,
     whatsapp_number: student.whatsapp_number ?? '',
-    allowed_courses: student.allowed_courses || [],
     password: '',
   })
   const [fieldErrors, setFieldErrors] = useState({})
   const [error, setError] = useState('')
   const [isSaving, setIsSaving] = useState(false)
-  const { data: courses } = useApiData(getCourses)
 
   function handleChange(event) {
     const { name, value } = event.target
     setForm((current) => ({ ...current, [name]: value }))
-  }
-
-  function handleCourseToggle(courseId) {
-    setForm((current) => {
-      const allowed = current.allowed_courses
-      if (allowed.includes(courseId)) {
-        return { ...current, allowed_courses: allowed.filter((id) => id !== courseId) }
-      }
-      return { ...current, allowed_courses: [...allowed, courseId] }
-    })
   }
 
   async function handleSubmit(event) {
@@ -60,7 +47,7 @@ function StudentAccountForm({ student, onSaved }) {
   }
 
   return (
-    <form className="card" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <Alert type="error">{error}</Alert>
 
       <div className="form-row">
@@ -100,27 +87,6 @@ function StudentAccountForm({ student, onSaved }) {
           </a>
         )}
       </FormField>
-
-      <fieldset>
-        <legend>Course Access</legend>
-        <p className="field-hint" style={{ marginBottom: '12px' }}>
-          Select the courses this student is allowed to see.
-        </p>
-        {courses ? (
-          courses.map((course) => (
-            <label key={course.id} className="checkbox-field">
-              <input
-                type="checkbox"
-                checked={form.allowed_courses.includes(course.id)}
-                onChange={() => handleCourseToggle(course.id)}
-              />
-              {course.title}
-            </label>
-          ))
-        ) : (
-          <p className="muted">Loading courses...</p>
-        )}
-      </fieldset>
 
       <FormField
         label="New password (optional)"

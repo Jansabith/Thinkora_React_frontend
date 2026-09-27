@@ -847,3 +847,314 @@
     text-align: center;
   }
 }
+
+/* ---------- Collapsible sections (student detail page) ---------- */
+
+.collapsible-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.collapsible {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.collapsible-summary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  transition: background 0.15s ease;
+}
+
+/* Hide the browser's own triangle: we draw our own chevron. */
+.collapsible-summary::-webkit-details-marker {
+  display: none;
+}
+
+.collapsible-summary::marker {
+  content: '';
+}
+
+.collapsible-summary:hover {
+  background: var(--surface-hover);
+}
+
+.collapsible-summary:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+
+.collapsible-chevron {
+  flex-shrink: 0;
+  color: var(--text-muted);
+  transition: transform 0.2s ease;
+}
+
+.collapsible[open] > .collapsible-summary .collapsible-chevron {
+  transform: rotate(90deg);
+}
+
+.collapsible-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  flex: 1;
+}
+
+.collapsible-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 1.02rem;
+  color: var(--text-primary);
+}
+
+.collapsible-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.collapsible-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* The progress bar inside a closed row gets a fixed width so every row lines up. */
+.collapsible-meta .progress {
+  width: 150px;
+}
+
+.collapsible-percent {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  min-width: 40px;
+  text-align: right;
+}
+
+.collapsible-body {
+  padding: 4px 20px 20px;
+  border-top: 1px solid var(--border);
+}
+
+/* ---------- Topic rows inside an open course ---------- */
+
+.topic-rows {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.topic-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 140px auto;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 16px;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.topic-row-main {
+  min-width: 0;
+}
+
+.topic-row-counts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 5px;
+  font-size: 0.83rem;
+}
+
+/* The two buttons sit side by side, and stack on a narrow screen. */
+.topic-row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ---------- Assign questions ---------- */
+
+.assign-question-table {
+  margin-top: 16px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.assign-pick-column {
+  width: 44px;
+}
+
+.assign-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+  font-size: 0.9rem;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 860px) {
+  .topic-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .topic-row-actions {
+    width: 100%;
+  }
+
+  .topic-row-actions .btn {
+    flex: 1;
+  }
+}
+
+@media (max-width: 700px) {
+  .collapsible-summary {
+    flex-wrap: wrap;
+    padding: 14px 16px;
+  }
+
+  /* On a phone the progress bar drops to its own line under the title. */
+  .collapsible-meta {
+    width: 100%;
+    padding-left: 32px;
+    justify-content: flex-start;
+  }
+
+  .collapsible-meta .progress {
+    flex: 1;
+    width: auto;
+  }
+
+  .collapsible-body {
+    padding: 4px 16px 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collapsible-chevron,
+  .collapsible-summary {
+    transition: none;
+  }
+}
+
+/* ---------- Course access section ---------- */
+
+.course-access-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 4px 0 14px;
+}
+
+.course-access-toolbar .field-hint {
+  margin: 0;
+}
+
+.course-access-bulk {
+  display: flex;
+  gap: 8px;
+}
+
+.course-access-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 10px;
+}
+
+/* The whole row is the label, so clicking anywhere ticks the box. */
+.course-access-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-subtle);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.course-access-item:hover {
+  border-color: var(--border-strong);
+}
+
+.course-access-item.is-allowed {
+  border-color: var(--color-primary-border);
+  background: var(--color-primary-soft);
+}
+
+.course-access-item input[type='checkbox'] {
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.course-access-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.course-access-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.course-access-meta {
+  font-size: 0.82rem;
+}
+
+@media (max-width: 620px) {
+  .course-access-list {
+    grid-template-columns: 1fr;
+  }
+
+  .course-access-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .course-access-bulk .btn {
+    flex: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .course-access-item {
+    transition: none;
+  }
+}
