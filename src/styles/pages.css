@@ -804,3 +804,46 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ---------- Teacher Assigned page ---------- */
+
+.questions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Filter tabs on the left, the progress bar on the right. */
+.assigned-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+/* "Assigned by Demo Admin on Sep 14, 2026" under each question. */
+.assigned-note {
+  margin: 16px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 620px) {
+  .assigned-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* On a phone the two tabs share the width evenly instead of hugging the left. */
+  .assigned-toolbar .filter-tabs {
+    width: 100%;
+  }
+
+  .assigned-toolbar .filter-tab {
+    flex: 1;
+    text-align: center;
+  }
+}
